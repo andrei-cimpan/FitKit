@@ -146,16 +146,24 @@ class FitKitPlugin(private val registrar: Registrar) : MethodCallHandler {
 
     @Suppress("IMPLICIT_CAST_TO_ANY")
     private fun dataPointToMap(dataPoint: DataPoint): Map<String, Any> {
-        val field = dataPoint.dataType.fields.first()
 
-        val map = mutableMapOf<String, Any>()
-        map["value"] = dataPoint.getValue(field).let { value ->
-            when (value.format) {
-                Field.FORMAT_FLOAT -> value.asFloat()
-                Field.FORMAT_INT32 -> value.asInt()
-                else -> TODO("for future fields")
+        val fields = dataPoint.dataType.fields.map {
+            val map = mutableMapOf<String, Any>()
+            map["name"] = it.name
+            map["value"] = it.let { value ->
+                when (value.format) {
+                    Field.FORMAT_FLOAT -> value.asFloat()
+                    Field.FORMAT_INT32 -> value.asInt()
+                    Field.FORMAT_STRING -> value.asString()
+                    else -> TODO("for future fields")
+                }
             }
         }
+
+        val map = mutableMapOf<String, Any>()
+        map["fields"] = fields
+        map["source"] = dataPoint.dataSource.streamName
+        map["uuid"] = dataPoint.dataSource.streamIdentifier
         map["date_from"] = dataPoint.getStartTime(TimeUnit.MILLISECONDS)
         map["date_to"] = dataPoint.getEndTime(TimeUnit.MILLISECONDS)
         return map
