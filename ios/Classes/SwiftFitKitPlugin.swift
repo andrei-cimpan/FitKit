@@ -96,6 +96,8 @@ public class SwiftFitKitPlugin: NSObject, FlutterPlugin {
                     "value": sample.quantity.doubleValue(for: request.unit),
                     "date_from": Int(sample.startDate.timeIntervalSince1970 * 1000),
                     "date_to": Int(sample.endDate.timeIntervalSince1970 * 1000),
+                    "source": sample.source.name,
+                    "uuid": sample.uuid.uuidString
                 ]
             })
         }

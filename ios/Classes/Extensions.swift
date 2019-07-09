@@ -22,6 +22,10 @@ extension HKSampleType {
                 return HKSampleType.quantityType(forIdentifier: .height)
             case "weight":
                 return HKSampleType.quantityType(forIdentifier: .bodyMass)
+            case "blood_pressure_systolic":
+                return HKSampleType.quantityType(forIdentifier: .bloodPressureSystolic)
+            case "blood_pressure_diastolic":
+                return HKSampleType.quantityType(forIdentifier: .bloodPressureDiastolic)
             default:
                 return nil
             }
@@ -44,6 +48,10 @@ extension HKUnit {
                 return HKUnit.meter()
             case "weight":
                 return HKUnit.gramUnit(with: .kilo)
+            case "blood_pressure_systolic":
+                return HKUnit.millimeterOfMercury()
+            case "blood_pressure_diastolic":
+                return HKUnit.millimeterOfMercury()
             default:
                 return nil
             }

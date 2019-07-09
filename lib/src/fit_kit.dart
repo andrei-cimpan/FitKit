@@ -33,9 +33,13 @@ class FitKit {
         return "height";
       case DataType.WEIGHT:
         return "weight";
+      case DataType.BP_SYSTOLIC:
+        return "blood_pressure_systolic";
+      case DataType.BP_DIASTOLIC:
+        return "blood_pressure_diastolic";
     }
     throw Exception('dataType $type not supported');
   }
 }
 
-enum DataType { HEART_RATE, STEP_COUNT, HEIGHT, WEIGHT }
+enum DataType { HEART_RATE, STEP_COUNT, HEIGHT, WEIGHT, BP_SYSTOLIC, BP_DIASTOLIC }
